@@ -2,7 +2,7 @@
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
 -- Lade die Keys von GitHub
-local Keys = loadstring(game:HttpGet('https://raw.githubusercontent.com/USERNAME/REPOSITORY/BRANCH/keys.lua'))()  -- Ersetze hier mit deiner Raw-URL
+local Keys = https://raw.githubusercontent.com/zeyez-dev/keyforpaidsystemsyntx/main/keys.lua
 
 -- Der Key, der benötigt wird, um das Script zu starten
 local userKey = ""
