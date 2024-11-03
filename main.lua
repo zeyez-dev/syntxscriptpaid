@@ -1,10 +1,26 @@
--- Lade die Orion Library
+
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
-local Keys = loadstring(game:HttpGet('https://raw.githubusercontent.com/zeyez-dev/keyforpaidsystemsyntx/main/keys.lua'))()
 
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local myObject = Instance.new("StringValue") 
+myObject.Name = "MyObject" 
+myObject.Value = "Dies ist ein Test" 
+myObject.Parent = ReplicatedStorage 
+
+local foundObject = ReplicatedStorage:FindFirstChild("MyObject")
+
+if foundObject then
+    print("Objekt gefunden: " .. foundObject.Value)
+else
+    warn("Das Objekt 'MyObject' wurde im ReplicatedStorage nicht gefunden!")
+end
+
+-- Der Key, der benötigt wird, um das Script zu starten
+local requiredKey = "zyez"
 local userKey = ""
 
+-- Erstellt ein Fenster für die Key-Eingabe
 local KeyWindow = OrionLib:MakeWindow({Name = "Key System", HidePremium = true, SaveConfig = false, ConfigFolder = "OrionTestKey"})
 
 -- Erstellt einen Tab für die Key-Eingabe
@@ -14,10 +30,12 @@ local KeyTab = KeyWindow:MakeTab({
     PremiumOnly = false
 })
 
+-- Sektion zur Eingabe des Keys
 local Section = KeyTab:AddSection({
     Name = "Enter Key to Access Hub"
 })
 
+-- Textbox für die Key-Eingabe
 KeyTab:AddTextbox({
     Name = "Key",
     Default = "",
@@ -27,13 +45,13 @@ KeyTab:AddTextbox({
     end
 })
 
-
+-- Button zur Bestätigung des Keys
 KeyTab:AddButton({
     Name = "Submit Key",
     Callback = function()
-        if Keys[userKey] then
-            KeyWindow:Destroy() 
-            loadMainHub() 
+        if userKey == requiredKey then
+            KeyWindow:Destroy() -- Schließt das Key-Fenster
+            loadMainHub() -- Lädt das Haupt-Hub
             OrionLib:MakeNotification({
                 Name = "Success",
                 Content = "Key accepted! Welcome to the Hub.",
@@ -42,8 +60,8 @@ KeyTab:AddButton({
             })
         else
             OrionLib:MakeNotification({
-                Name = "Error",
-                Content = "Invalid key entered.",
+                Name = "Invalid Key",
+                Content = "The key you entered is incorrect.",
                 Image = "rbxassetid://4483345998",
                 Time = 5
             })
@@ -51,10 +69,11 @@ KeyTab:AddButton({
     end
 })
 
+-- Funktion für das Haupt-Script-Hub
 function loadMainHub()
     local Window = OrionLib:MakeWindow({Name = "Tutorial Hub", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
 
-  
+    -- Player Tab
     local PlayerTab = Window:MakeTab({
         Name = "Player",
         Icon = "rbxassetid://4483345998",
@@ -91,7 +110,7 @@ function loadMainHub()
         end    
     })
 
-    
+    -- Other Tab
     local OtherTab = Window:MakeTab({
         Name = "Other",
         Icon = "rbxassetid://4483345998",
